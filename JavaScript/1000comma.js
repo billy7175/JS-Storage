@@ -2,6 +2,7 @@ function numberFormat(number) {
   var string = number.toString();
   var length = string.length;
   var standard = (length % 3 === 0) ? 3 : length % 3;
+  console.log("standard",standard)
   var arr = [];
   var start = 0;
 
@@ -18,6 +19,7 @@ function numberFormat(number) {
   }
 
   var result = arr.join(",");
+  console.log('result', result)
 
   return result;
 }
