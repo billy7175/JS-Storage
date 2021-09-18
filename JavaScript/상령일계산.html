@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form
+      action=""
+      class="pure-form"
+      method="post"
+      target="actionFrame"
+      name="consult_frm"
+    >
+      <table class="tbl_form">
+        <colgroup>
+          <col style="width: 75px" />
+          <col style="" />
+          <col style="width: 75px" />
+          <col style="" />
+        </colgroup>
+        <tbody>
+          <tr style="">
+            <th>이 름</th>
+            <td>
+              <input
+                type="text"
+                id="customer_name"
+                class="ip_base"
+                name="customer_name"
+                value=""
+                placeholder=""
+                maxlength="4"
+              />
+            </td>
+          </tr>
+          <tr>
+            <th>생년월일</th>
+            <td>
+              <input
+                type="tel"
+                class="ip_base"
+                id="customer_birth"
+                name="customer_birth"
+                value=""
+                placeholder="예) 19530120"
+                checked="checked"
+                maxlength="8"
+              />
+            </td>
+          </tr>
+
+          <tr>
+            <th>핸드폰</th>
+            <td>
+              <select name="mobile1" class="tel1">
+                <option value="010">010</option>
+                <option value="011">011</option>
+                <option value="016">016</option>
+                <option value="017">017</option>
+                <option value="018">018</option>
+                <option value="019">019</option></select
+              ><span class="bar"></span
+              ><input
+                type="text"
+                name="mobile2"
+                class="ip_base ip_tel"
+                maxlength="4"
+                onkeypress="if((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;"
+              /><span class="bar"></span
+              ><input
+                type="text"
+                name="mobile3"
+                class="ip_base ip_tel"
+                maxlength="4"
+                onkeypress="if((event.keyCode<48) || (event.keyCode>57)) event.returnValue=false;"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="privacy">
+        <input type="checkbox" name="agree" id="aa" checked="checked" />
+        <label for="aa" style="cursor: pointer">
+          개인정보수집 및 활용동의<a
+            href="javascript:na_open_window('win', 'privacy.php', 0, 0, 780, 600, 0, 0, 0, 1, 1);"
+            >보기</a
+          >
+        </label>
+      </div>
+      <!-- privacy -->
+      <button
+        id="submitButton"
+        type="button"
+        class="btn_sub"
+        style="
+          width: 276px;
+          height: 58px;
+          display: inline-block;
+          top: 238px;
+          left: -9px;
+        "
+      >
+        제출하기
+      </button>
+    </form>
+    <script>
+      document
+        .querySelector("#customer_birth")
+        .addEventListener("input", function (e) {
+          const today = new Date();
+          var yyyymmdd = e.target.value.split("");
+          var yyyy = yyyymmdd.slice(0, 4).join("");
+          var mm = yyyymmdd.slice(4, 6).join("");
+          var dd = yyyymmdd.slice(6, 8).join("");
+          var nd = new Date();
+          var birthday = new Date(yyyy, mm, dd);
+          console.log(isNaN(yyyy[0]));
+          console.log('yyyy',yyyy);
+          console.log('mm',mm);
+          console.log("dd",dd)
+          console.log("나", yyyy);
+          console.log("ndd", birthday);
+          let age = today.getFullYear() - birthday.getFullYear();
+          let insuranceAge = age;
+          
+
+          console.log(`당신은 만 ${age} 입니다.`);
+          console.log('당신의 나이는 (상령일 기준)');
+        });
+
+      // var yyyymmdd = document.querySelector("#customer_birth").value.split("");
+      // var yyyy = yyyymmdd.slice(0, 4);
+      // var mm = yyyymmdd.slice(4, 6);
+      // var dd = yyyymmdd.slice(6, 8);
+      // var nd = new Date();
+      // var ndd = new Date(yyyy, mm, dd);
+      // console.log(isNaN(yyyy[0]));
+      // console.log(yyyy);
+      // console.log(mm);
+      // console.log(ndd);
+    </script>
+  </body>
+</html>
