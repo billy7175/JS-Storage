@@ -1,16 +1,3 @@
-const currentYear = 2021;
-// start week 속성에 따라 weekDays 값을 변경시켜준다.
-const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const weekDaysTest = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-const firsTest = weekDaysTest.findIndex(day => {
-  return day === 'Fri'
-})
-
-console.log('firstTest', firsTest)
-
-
-const daysIndex = [0, 1, 2 ,3 ,4 ,5 , 6]
-// const daysIndex = [0, 1, 2 ,3 ,4 ,5 , 6]
 const months = [
 	'January',
 	'February',
@@ -25,6 +12,57 @@ const months = [
 	'November',
 	'December'
 ];
+
+const currentYear = 2021;
+
+// start week 속성에 따라 weekDays 값을 변경시켜준다.
+let originalWeekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+let weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+let x = 'Mon';
+switch(x) {
+  case 'Sun':
+		weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+		break;
+
+		case 'Mon': 
+		weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+		break;
+
+		case 'Tue': 
+		weekDays = ['Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun','Mon'];
+		break;
+
+		case 'Wed': 
+		weekDays = ['Wed', 'Thu', 'Fri', 'Sat', 'Sun','Mon', 'Tue'];
+		break;
+
+		case 'Thu': 
+		weekDays = [ 'Thu', 'Fri', 'Sat', 'Sun','Mon', 'Tue', 'Wed',];
+		break;
+		case 'Fri': 
+		weekDays = [ 'Fri', 'Sat', 'Sun','Mon', 'Tue', 'Wed','Thu',];
+		break;
+		case 'Sat': 
+		weekDays = [ 'Sat', 'Sun','Mon', 'Tue', 'Wed','Thu', 'Fri', ];
+		break;
+
+  default:
+    weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    break;
+}
+
+const firstDayOfWeek = weekDays[0]
+const firstDayIndex = weekDays.findIndex(day => {
+  return day === firstDayOfWeek
+})
+
+
+
+
+console.log('weekDays ===',weekDays)
+console.log('firstDayIndex', firstDayIndex)
+// console.log('startDayOfMonth', startDayOfMonth)
 
 const getAllDays = year => {
 	// 특정 년도의 첫번쨰 일(1일쨰) First day of the year - 1st January
@@ -70,24 +108,39 @@ calendar.innerHTML = monthsHTML;
 
 // Loop over each day and
 dates.forEach(date => {
-  // date = 365 days
-  // getDays는 요일의 index 0~6
-  console.log('forEach date ===', date.getDay())
 	const month = date.getMonth();
 	const monthEl = document.querySelector(`.month_${month} .days_container`);
   monthEl.style.border ='1px solid gold'
 
+
+	
+	
+
 	// create extra day slots if needed before day 1
   // date가 1일 그리고 요일이 0이 아니면 즉 일요일이 아니면 
   // 조건 => 
-    if (date.getDate() === 1 && date.getDay() !== 0) {
-      for (let i = 0; i < date.getDay(); i++) {
-        const emptySpot = createEmptySpot();
-        
-        // 밑의 메소드를 통해서 이전 달 일들을 채워준다.
-        monthEl.appendChild(emptySpot);
-      }
-    }  
+	// if (date.getDate() === 1 && date.getDay() !== 0) {
+	// 	for (let i = 0; i < date.getDay(); i++) {
+	// 		const emptySpot = createEmptySpot();
+			
+	// 		// 밑의 메소드를 통해서 이전 달 일들을 채워준다.
+	// 		monthEl.appendChild(emptySpot);
+	// 	}
+	// }  
+	if (date.getDate() === 1 && date.getDay() !== firstDayIndex) {
+		let xx = originalWeekDays[date.getDay()]
+		const startDayOfMonth = weekDays.findIndex(day => {
+			return day === xx
+		})
+		console.log('xx ===', xx)
+		console.log('startDayOfMonth ===', startDayOfMonth)
+		for (let i = 0; i < startDayOfMonth; i++) {
+			const emptySpot = createEmptySpot();
+			
+			// 밑의 메소드를 통해서 이전 달 일들을 채워준다.
+			monthEl.appendChild(emptySpot);
+		}
+	}  
   
 	
 	const dateEl = createDateEl(date);
@@ -100,7 +153,7 @@ function createDateEl(date) {
 	const dateEl = document.createElement('div');
 	dateEl.classList.add('days');
 	dateEl.innerHTML = `<span class="circle">${day}</span>`;
-  dateEl.style.border='1px solid purple'
+  dateEl.style.border='3px solid purple'
 
 	return dateEl;
 }
