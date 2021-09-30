@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Refactoring_Pratice</h1>
+    <script src="./invoices.json"></script>
+    <script src="./plays.json"></script>
+    <script>
+      console.log("Is it working?");
+      // console.log()
+      function statement(invoices, plays) {
+        console.log('inside!')
+        console.log('param ===', invoices.customer)
+        console.log('plays ===', plays)
+        let totalAmount = 0;
+        let volumeCredits = 0;
+        let result = `청구 내역(고객명: ${invoices.customer})\n`;
+        const format = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 2,
+        }).format;
+
+     
+        for (let perf of invoices.performances) {
+        
+          const play = plays[perf.playID];
+          let thisAmount = 0;
+
+          switch (play.type) {
+            case "tragedy":
+              thisAmount = 40000;
+              if (perf.audience > 30) {
+                thisAmount += 1000 * (perf.audience - 30);
+              }
+              break;
+            case "comedy":
+              thisAmount = 30000;
+              if (perf.audience > 20) {
+                thisAmount += 1000 + 500 * (perf.audience - 20);
+              }
+              thisAmount += 300 * perf.audience;
+              break;
+            default:
+              throw new Error(`알 수없는 장르 ${play.type}`);
+          }
+
+          // stack points
+          
+          volumeCredits += Math.max(perf.audience - 30, 0);
+          if ("comedy" === play.type)
+            volumeCredits += Math.floor(perf.audience / 5);
+
+          result += `${play.name}: ${format(thisAmount / 100)}(${
+            perf.audience
+          }석)\n`;
+          totalAmount += thisAmount;
+        } // for
+
+        result += `총액: ${format(totalAmount / 100)}\n`;
+        result += `적립 포인트 : ${volumeCredits}점\n`;
+        return result
+      }
+      
+      let customInvoices
+      let customPlays
+      const invoices = fetch("./invoices.json")
+        .then(res => res.json())
+        .then(data => {
+          customInvoices = data
+          return data
+          // console.log('data = ',data)
+        })
+      // const invoicesData = invoices.json();
+      console.log("1. invoices ===", invoices);
+      // console.log("1. invoicesData ===", invoicesData);
+
+      const plays = fetch("./plays.json")
+        .then((reponse) => reponse.json())
+        .then((data) => { 
+          customPlays = data
+          return data
+        });
+      console.log("2. plays ===", plays);
+
+      setTimeout(() => {
+        console.log('customInvoices ===', customInvoices[0])
+        console.log('customPlays ===', customPlays)
+        console.log(statement(customInvoices[0], customPlays))
+      },1000)
+    </script>
+  </body>
+</html>
