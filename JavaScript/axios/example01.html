@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <div id="app"></div>
+  </head>
+  <body>
+    <script>
+      // Step 01
+      const app = document.getElementById("app");
+      let list = [];
+      console.log("app ===", app);
+      fetch("https://api.coindesk.com/v1/bpi/currentprice.json").then(
+        (response) => {
+          if (response.ok) {
+            return response.json()
+          }
+        }
+      ).then(data => {
+        list = data
+        console.log('inside', list)
+      })
 
-  <script>
-    // Step 01
-    fetch('https://api.publicapis.org/entries').then(data => {
-      console.log(data)
-    })
-  </script>
-</body>
+      console.log('list ===', list)
+    </script>
+  </body>
 </html>
