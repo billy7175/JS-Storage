@@ -1,6 +1,6 @@
 // AXIOS GLOBALS
-// axios.defaults.headers.common["X-Auth-Token"] =
-//   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+axios.defaults.headers.common["X-Auth-Token"] =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
 
 // GET REQUEST
 function getTodos() {
@@ -15,9 +15,8 @@ function getTodos() {
   //   .catch(err => console.error(err));
 
   axios
-    .get("https://www.boredapi.com/api/activity", {
+    .get("https://jsonplaceholder.typicode.com/todo", {
       timeout: 5000,
-      origin: ['https://www.boredapi.com/api/activity'],
       // headers: {
       //   "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
       // },
