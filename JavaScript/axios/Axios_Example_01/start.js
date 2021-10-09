@@ -55,7 +55,7 @@ function showOutput(res) {
   </div>
   <div class="card mt-3">
     <div class="card-header">
-      Headers
+      1. Headers
     </div>
     <div class="card-body">
       <pre>${JSON.stringify(res.headers, null, 2)}</pre>
@@ -63,7 +63,7 @@ function showOutput(res) {
   </div>
   <div class="card mt-3">
     <div class="card-header">
-      Data
+      2. Data
     </div>
     <div class="card-body">
       <pre>${JSON.stringify(res.data, null, 2)}</pre>
@@ -71,13 +71,16 @@ function showOutput(res) {
   </div>
   <div class="card mt-3">
     <div class="card-header">
-      Config
+      3. Config
     </div>
     <div class="card-body">
       <pre>${JSON.stringify(res.config, null, 2)}</pre>
     </div>
   </div>
 `;
+{/* <pre> 태그는 미리 정의된 형식(preformatted)의 텍스트를 정의할 때 사용합니다. */}
+{/* <pre> 요소 내의 텍스트는 시스템에서 미리 지정된 고정폭 글꼴(fixed-width font)을 사용하여 표현되며, 텍스트에 사용된 여백과 줄바꿈이 모두 그대로 브라우저 화면에 나타납니다. */}
+{/* 이러한 <pre> 요소를 사용하면, 독특한 서식의 텍스트나 컴퓨터 코드 등을 HTML 문서에 그대로 표현할 수 있습니다. */}
 }
 
 // Event listeners
