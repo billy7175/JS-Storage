@@ -8,10 +8,7 @@
   </head>
   <body>
     <h1>Refactoring_Pratice</h1>
-    <!-- <script src="./invoices.json"></script>
-    <script src="./plays.json"></script> -->
     <script>
-      // console.log()
       function statement(invoices, plays) {
         let totalAmount = 0;
         let volumeCredits = 0;
@@ -25,11 +22,6 @@
         // 추가 *******
 
         for (let perf of invoices.performances) {
-          // const play = plays[aPerformance.playID];
-
-          // const play = playFor(perf);
-
-          // let thisAmount = 0;
 
           let thisAmount = amountFor(perf, playFor(perf));
 
@@ -37,9 +29,7 @@
           if ("comedy" === playFor(perf).type)
             volumeCredits += Math.floor(perf.audience / 5);
 
-          result += `${playFor(perf).name}: ${format(thisAmount / 100)}(${
-            perf.audience
-          }석)\n`;
+          result += `${playFor(perf).name}: ${format(amountFor(perf) / 100)}(${perf.audience}석)\n`;
           totalAmount += thisAmount;
         } // for
 
@@ -50,12 +40,9 @@
           return plays[aPerformance.playID];
         }
 
-        return result;
-      } // End Of Statement
-
-      function amountFor(aPerformance, play) {
+        function amountFor(aPerformance) {
         let thisAmount = 0;
-        switch (play.type) {
+        switch (playFor(aPerformance).type) {
           case "tragedy": //비극
             thisAmount = 40000;
             if (aPerformance.audience > 30) {
@@ -71,11 +58,16 @@
             thisAmount += 300 * aPerformance.audience;
             break;
           default:
-            throw new Error(`알 수 없는 장르 ${play.type}`);
+            throw new Error(`알 수 없는 장르 ${playFor(aPerformance).type}`);
         }
 
         return thisAmount;
       }
+
+        return result;
+      } // End Of Statement
+
+      
 
       let customInvoices;
       let customPlays;
