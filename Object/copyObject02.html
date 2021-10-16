@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    var user = {
+      name:'billy',
+      gender:'male'
+    }
+
+    var copyObject = function(target){
+      var result = {};
+      for(var prop in target){
+        result[prop] = target[prop];
+      }
+      return result
+    }
+
+    var user2 = copyObject(user)
+
+    if(user !== user2){
+      console.log('정보 변경')
+      console.log(user)
+      console.log(user2)
+    } else {
+      console.log('정보 변경 X')
+      console.log(user)
+      console.log(user2)
+    }
+  </script>
+</body>
+</html>
