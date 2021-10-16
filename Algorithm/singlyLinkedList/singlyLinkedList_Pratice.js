@@ -1,13 +1,26 @@
 class Node {
-    constructor (value){
-        this.value = value
+    constructor (val){
+        this.val = val
         this.next = null;
     }
-    push(){}
-    pop(){}
 }
 
-var first =new Node('HI~?')
-first.next = new Node('I said I ya???')
-first.next.next = new Node('Shit the fuck up')
-console.log(first)
+class SinglyLinkedList {   
+    constructor() {
+        this.head = null
+        this.tail = null;
+        this.length = 0;
+    }
+    push(val){
+        var newNode = new Node(val)
+        if(!this.head){
+            this.head = newNode
+            this.tail = this.head
+        }
+    }
+}
+
+
+var list = new SinglyLinkedList()
+list.push('Hello')
+console.log(list)
