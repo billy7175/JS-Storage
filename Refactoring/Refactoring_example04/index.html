@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Refactoring_Pratice</h1>
+    <script>
+      function statement(invoices, plays) {
+        let totalAmount = 0;
+        let volumeCredits = 0;
+        let result = `청구 내역(고객명: ${invoices.customer})\n`;
+        const format = new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+          minimumFractionDigits: 2,
+        }).format;
+
+        // 추가 *******
+
+        for (let perf of invoices.performances) {
+
+          let thisAmount = amountFor(perf, playFor(perf));
+
+          volumeCredits += Math.max(perf.audience - 30, 0);
+          if ("comedy" === playFor(perf).type)
+            volumeCredits += Math.floor(perf.audience / 5);
+
+          result += `${playFor(perf).name}: ${format(amountFor(perf) / 100)}(${perf.audience}석)\n`;
+          totalAmount += thisAmount;
+        } // for
+
+        result += `총액: ${format(totalAmount / 100)}\n`;
+        result += `적립 포인트 : ${volumeCredits}점\n`;
+
+        function playFor(aPerformance) {
+          return plays[aPerformance.playID];
+        }
+
+        function amountFor(aPerformance) {
+        let thisAmount = 0;
+        switch (playFor(aPerformance).type) {
+          case "tragedy": //비극
+            thisAmount = 40000;
+            if (aPerformance.audience > 30) {
+              thisAmount += 1000 * (aPerformance.audience - 30);
+            }
+            break;
+
+          case "comedy": //비극
+            thisAmount = 30000;
+            if (aPerformance.audience > 20) {
+              thisAmount += 10000 + 500 * (aPerformance.audience - 20);
+            }
+            thisAmount += 300 * aPerformance.audience;
+            break;
+          default:
+            throw new Error(`알 수 없는 장르 ${playFor(aPerformance).type}`);
+        }
+
+        return thisAmount;
+      }
+
+        return result;
+      } // End Of Statement
+
+      
+
+      let customInvoices;
+      let customPlays;
+      const invoices = fetch("./invoices.json")
+        .then((res) => res.json())
+        .then((data) => {
+          customInvoices = data;
+          return data;
+          // console.log('data = ',data)
+        });
+      // const invoicesData = invoices.json();
+      console.log("1. invoices ===", invoices);
+      // console.log("1. invoicesData ===", invoicesData);
+
+      const plays = fetch("./plays.json")
+        .then((reponse) => reponse.json())
+        .then((data) => {
+          customPlays = data;
+          return data;
+        });
+      console.log("2. plays ===", plays);
+
+      setTimeout(() => {
+        console.log("customInvoices ===", customInvoices[0]);
+        console.log("customPlays ===", customPlays);
+        console.log(statement(customInvoices[0], customPlays));
+      }, 1000);
+    </script>
+  </body>
+</html>
