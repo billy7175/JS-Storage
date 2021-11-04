@@ -60,3 +60,24 @@ let group = swList.reduce((r, a) => {
   return r;
 }, {});
 console.log("group", group);
+
+
+function groupBy(key) {
+  return function group(array) {
+    return array.reduce((acc, obj) => {
+      const property = obj[key];
+      // obj[key] here will be '1991'.
+      acc[property] = acc[property] || [];
+      // At this point acc['1991'] doesn't yet exist, so it will be an empty array. This step is important as it checks if acc['1991'] exists, and if not, creates it and assigns a value of an empty array.
+      acc[property].push(obj);
+      // Here, all we're doing is pushing our object into the right group
+      return acc;
+    }, {});
+  };
+}
+
+const groupByYear = groupBy("make");
+console.log(groupByYear(swList));
+
+
+
