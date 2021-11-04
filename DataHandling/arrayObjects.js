@@ -29,27 +29,27 @@ const cars = [
 const swList = [
   {
     make: "window",
-    version: 1.1
+    version: 1.1,
   },
   {
     make: "window",
-    version: 1.2
+    version: 1.2,
   },
   {
     make: "window",
-    version: 1.3
+    version: 1.3,
   },
   {
     make: "linux",
-    version:2
+    version: 2,
   },
   {
     make: "linux",
-    version:2.5
+    version: 2.5,
   },
   {
     make: "linux",
-    version:2
+    version: 2,
   },
 ];
 
@@ -59,8 +59,12 @@ let group = swList.reduce((r, a) => {
   r[a.make] = [...(r[a.make] || []), a];
   return r;
 }, {});
-console.log("group", group);
 
+const { window, linux } = group;
+console.log(' ???', group.window)
+console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+console.log("window", window);
+console.log("linux", linux);
 
 function groupBy(key) {
   return function group(array) {
@@ -77,7 +81,4 @@ function groupBy(key) {
 }
 
 const groupByYear = groupBy("make");
-console.log(groupByYear(swList));
-
-
-
+// console.log(groupByYear(swList));
