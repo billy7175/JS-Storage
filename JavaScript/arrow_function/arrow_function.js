@@ -15,3 +15,5 @@ names.forEach(function(item, index){
 })
 
 names.forEach((item, index) => { console.log(index, item)})
+
+//test
