@@ -15,9 +15,27 @@ function request(num) { // mock HTTP request
 // })
 
 async function fn() {
-  console.log(1)
+  // console.log(1)
   console.log(await request(1)) // 2
   console.log(await request(2)) // 4
   // print `2` and `4` at the same time
 }
 fn()
+
+////////////////////////////////
+function fnc(num) {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(num)
+    }, 1000)
+  })
+}
+function* gen() {
+  yield fnc(1)
+  yield fnc(2)
+  return 3
+}
+const g = gen()
+console.log(g.next()) // { value: Promise { <pending> }, done: false }
+console.log(g.next()) // { value: Promise { <pending> }, done: false }
+console.log(g.next()) // { value: 3, done: true }
