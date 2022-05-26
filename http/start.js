@@ -14,24 +14,27 @@ function addTodo() {
         title: 'This is a new todo data',
         completed: false
     })
-    .then(res => showOutput(res))
-    .catch(err => console.error(err));
+        .then(res => showOutput(res))
+        .catch(err => console.error(err));
 }
 
 // PUT/PATCH REQUEST
 function updateTodo() {
     console.log('PUT/PATCH Request');
     axios.patch('https://jsonplaceholder.typicode.com/todos/1', {
-        title : 'this is a newly updated data.',
+        title: 'this is a newly updated data.',
         completed: true
     })
-    .then(res => showOutput(res))
-    .catch(err => console.error(err))
+        .then(res => showOutput(res))
+        .catch(err => console.error(err))
 }
 
 // DELETE REQUEST
-function removeTodo() {
+function removeTodo(id = 1) {
     console.log('DELETE Request');
+    axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+        .then(res => showOutput(res))
+        .catch(err => console.error(err));
 }
 
 // SIMULTANEOUS DATA
