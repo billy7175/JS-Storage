@@ -12,7 +12,7 @@ Good Luck ! <br />
 
 ---
 
-###### 2. What's the output?
+###### 1. What's the output?
 
 ```javascript
 for (var i = 0; i < 3; i++) {
@@ -39,5 +39,4 @@ In the second loop, the variable `i` was declared using the `let` keyword: varia
 </p>
 </details>
 
----
 ---
