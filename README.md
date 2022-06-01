@@ -38,3 +38,6 @@ In the second loop, the variable `i` was declared using the `let` keyword: varia
 
 </p>
 </details>
+
+---
+---
