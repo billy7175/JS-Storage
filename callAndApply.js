@@ -11,3 +11,14 @@ const Daehan = {
 Daehan.book(239, 'Billy');
 Daehan.book(111, 'John');
 console.log(Daehan)
+
+const Eurowings = {
+    airline : 'Euro Wings',
+    iataCode: 'EW',
+    bookings: []
+}
+
+const book = Daehan.book
+
+book.call(Eurowings, 222, 'Jack')
+console.log('#Eurowings : ', Eurowings)
