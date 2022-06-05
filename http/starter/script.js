@@ -50,7 +50,7 @@ const renderCountry = (data, className) => {
     `
 
     countriesContainer.insertAdjacentHTML('beforeend', html)
-    countriesContainer.style.opacity = 1
+    // countriesContainer.style.opacity = 1
 }
 
 const getCountryAndNeighbour = function (country) {
@@ -67,28 +67,43 @@ const getCountryAndNeighbour = function (country) {
         const request2 = new XMLHttpRequest();
         request2.open('GET', `https://restcountries.com/v2/alpha/${neighbour}`)
         request2.send()
-        request2.addEventListener('load', function(){
+        request2.addEventListener('load', function () {
             const data2 = JSON.parse(this.responseText)
             renderCountry(data2, 'neighbour')
         })
     })
 }
 
+const renderError = function (message) {
+    countriesContainer.insertAdjacentText('beforeend', message)
+    // countriesContainer.style.opacity = 1
+}
+
 // getCountryAndNeighbour('portugal')
 
-const getCountryAndNeighbourWithFetch  = (country) => {
+const getCountryAndNeighbourWithFetch = (country) => {
     fetch(`https://restcountries.com/v2/name/${country}`)
-        .then( response =>  response.json())
-        .then( data => {
+        .then(response => response.json())
+        .then(data => {
             renderCountry(data[0])
             const neighbour = data[0].borders?.[0]
 
-            if(!neighbour) return
+            if (!neighbour) return
 
             return fetch(`https://restcountries.com/v2/alpha/${neighbour}`)
         })
         .then(response => response.json())
         .then(data => renderCountry(data, 'neighbour'))
-    }   
+        .catch(error => {
+            renderError(`Something went wrong, ${error.message}`)
+        })
+        .finally(() => {
+            countriesContainer.style.opacity = 1
+        })
+}
 
 getCountryAndNeighbourWithFetch('portugal')
+
+btn.addEventListener('click', function () {
+    getCountryAndNeighbourWithFetch('asdasd')
+})
