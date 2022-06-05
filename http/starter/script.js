@@ -5,19 +5,17 @@ const countriesContainer = document.querySelector('.countries');
 
 ///////////////////////////////////////
 
-const request = new XMLHttpRequest();
-
-request.open('GET', 'https://restcountries.com/v2/name/portugal')
-
-request.send()
-console.log('#request', request)
-console.log(request.responseText);
-
-request.addEventListener('load', function () {
-    console.log('#this', this)
-    console.log(this.responseText)
-    const [ data ] = JSON.parse(this.responseText)
-    const html = `
+const getCountryData = function (country) {
+    const request = new XMLHttpRequest();
+    request.open('GET', `https://restcountries.com/v2/name/${country}`)
+    request.send()
+    console.log('#request', request)
+    console.log(request.responseText);
+    request.addEventListener('load', function () {
+        console.log('#this', this)
+        console.log(this.responseText)
+        const [data] = JSON.parse(this.responseText)
+        const html = `
     <article class="country">
         <img class="country__img" src="${data.flag}" />
         <div class="country__data">
@@ -30,7 +28,11 @@ request.addEventListener('load', function () {
     </article>
     `
 
-    countriesContainer.insertAdjacentHTML('beforeend', html)
-    countriesContainer.style.opacity = 1
-    console.log('#data', data)
-})
+        countriesContainer.insertAdjacentHTML('beforeend', html)
+        countriesContainer.style.opacity = 1
+        console.log('#data', data)
+    })
+}
+getCountryData('portugal')
+getCountryData('usa')
+getCountryData('germany')
