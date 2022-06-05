@@ -59,35 +59,36 @@ const getCountryAndNeighbour = function (country) {
     const request = new XMLHttpRequest();
     request.open('GET', `https://restcountries.com/v2/name/${country}`)
     request.send()
-    console.log('#request', request)
-    console.log(request.responseText);
     request.addEventListener('load', function () {
-        console.log('#this', this)
-        console.log(this.responseText)
         const [data] = JSON.parse(this.responseText)
-
-        // renderCountry 1
         renderCountry(data)
-
-        // getNeignbour (2)
         const neighbour = data.borders?.[0]
-
         if (!neighbour) return
-
-        // Ajax call country 2
         const request2 = new XMLHttpRequest();
         request2.open('GET', `https://restcountries.com/v2/alpha/${neighbour}`)
         request2.send()
-        console.log('#neighbour', neighbour)
         request2.addEventListener('load', function(){
             const data2 = JSON.parse(this.responseText)
-            console.log(data2)
-            console.log('#request2', this.responseText)
-
             renderCountry(data2, 'neighbour')
         })
     })
 }
-getCountryAndNeighbour('portugal')
-getCountryAndNeighbour('usa')
-// getCountryAndNeighbour('germany')
+
+// getCountryAndNeighbour('portugal')
+
+const getCountryAndNeighbourWithFetch  = (country) => {
+    fetch(`https://restcountries.com/v2/name/${country}`)
+        .then( response =>  response.json())
+        .then( data => {
+            renderCountry(data[0])
+            const neighbour = data[0].borders?.[0]
+
+            if(!neighbour) return
+
+            return fetch(`https://restcountries.com/v2/alpha/${neighbour}`)
+        })
+        .then(response => response.json())
+        .then(data => renderCountry(data, 'neighbour'))
+    }   
+
+getCountryAndNeighbourWithFetch('portugal')
